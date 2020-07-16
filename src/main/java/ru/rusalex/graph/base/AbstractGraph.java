@@ -17,11 +17,11 @@ public abstract class AbstractGraph<V> implements Graph<V, Edge<V>> {
         this.vertices = vertices;
     }
 
-    protected Set<int[]> getEdges() {
+    public Set<int[]> getEdges() {
         return edges;
     }
 
-    protected void setEdges(Set<int[]> edges) {
+    public void setEdges(Set<int[]> edges) {
         this.edges = edges;
     }
 
@@ -58,6 +58,10 @@ public abstract class AbstractGraph<V> implements Graph<V, Edge<V>> {
         return convertIndexEdgeChainIntoObjectEdgeChain(indexEdgeChain);
     }
 
+    protected abstract boolean isVerticesConnectedAndNotVisited(boolean[] visited, int[] edge, int vertexIndex);
+
+    protected abstract boolean isEdgeExists(int[] newEdge);
+
     /**
      * In order to avoid StackOverflowError in case of large number of vertices I use a while loop instead of recursion.
      *
@@ -88,11 +92,6 @@ public abstract class AbstractGraph<V> implements Graph<V, Edge<V>> {
         }
         return null;
     }
-
-    protected abstract boolean isVerticesConnectedAndNotVisited(boolean[] visited, int[] edge, int vertexIndex);
-
-    protected abstract boolean isEdgeExists(int[] newEdge);
-
 
     private void addEdge(int firstVertexIndex, int secondVertexIndex) {
         int vertexSize = getVertices().size();
